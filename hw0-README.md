@@ -8,7 +8,7 @@ This document should help you set up the environment needed to do
 assignments in CS 186.
 
 In order to ensure that your homework solutions are
-compatible with the CS186 grading infrastructure, we need to enable you to use
+compatible with the CS 186 grading infrastructure, we need to enable you to use
 the same software environment that we use for grading.
 
 To that end, we require that homeworks are implemented to execute correctly inside a [docker
@@ -37,6 +37,7 @@ Most recent laptops should support Docker CE.
 [Docker getting started page](https://www.docker.com/get-started),
 stay on the "Developer" tab, and click the button on the right to download the
 installer for your OS. Follow all the instructions included.
+    - Mac users, if you have [`brew`](https://brew.sh) installed, you may run `brew cask install docker`.
 - To install Docker CE on Linux, open the [Docker
 docs](https://docs.docker.com/install/#server), and click the appropriate link
 to find instructions for your Linux distro.
@@ -66,9 +67,9 @@ show you how to set WSL to play nicely with Docker for Windows.
 
 5. You need to run Docker from a Windows account with Administrator privileges.
 
-## Getting the class docker image
+## Getting the Class Docker Image
 
-The next step is to get the class docker image. To do this,
+The next step is to get the class Docker image. To do this,
 *get on a good internet connection*, open a
 terminal on your computer and run
 
@@ -84,13 +85,13 @@ docker run cs186/environment echo "hello from cs186"
 ```
 
 That should print `hello from cs186` on your terminal. It did this by
-running the `echo` shell command inside a `cs186/environment` docker
+running the `echo` shell command inside a `cs186/environment` Docker
 container.
 
 If you are curious to learn more about using Docker, there is [a nice
-tutorial online](https://docker-curriculum.com/).
+tutorial](https://docker-curriculum.com/).
 
-## Sharing your computer's drive with Docker containers
+## Sharing Your Computer's Drive with Docker Containers
 
 An important thing to realize about Docker is that the container has its own
 temporary filesystem, which is deleted when the container is terminated, and is
@@ -100,7 +101,7 @@ the container is terminated!**
 
 Instead, you will store your files in your own computer's "local" drive, and *mount* a directory from your local drive within Docker. Mounted volumes in Docker exist outside the Docker container, and hence are not reset when Docker exits.
 
-You can think of this as: a directory exists on your hard drive, with your CS186
+You can think of this as: a directory exists on your hard drive, with your CS 186
 code. On your computer, perhaps this is located at
 `/Users/pusheen/Desktop/cs186` - in other words, on your computer, the path
 `/Users/pusheen/Desktop/cs186` points to the directory. Inside your containter,
@@ -111,20 +112,20 @@ visible to the other side.
 
 ![diagram of previous paragraph](images/hw0-docker-mounts.png)
 
-### Configuring support for shared drives
+### Configuring Shared Drives
 
 You may need to configure your Docker installation to share local drives, depending on your OS. Set this up now.
 
-- **Linux**: you can skip this section -- nothing for you to worry about!
+- **Linux**: you can skip this section — nothing for you to worry about!
 - **Mac**: be aware that you can only share directories under `/Users/`, `/Volumes/`, `/private` and `/tmp/` by default. If that's inconvenient for you, this is [configurable](https://docs.docker.com/docker-for-mac/osxfs/#namespaces).
 - **Windows (Docker for Windows)**: To configure Docker to share local drives, follow the instructions [here](https://docs.docker.com/docker-for-windows/#shared-drives). The pathname you will need to use in the `docker run -v` command will need to include a root-level directory name corresponding to the Windows drive letter, and UNIX-style forward slashes. E.g. for the Windows directory `C:\\Users\myid` you would use `docker run -v /c/Users/myid`.
 - **Windows (Docker Toolbox)**: be aware that you can only share data within `C:\Users` by default. If the `C:\Users` directory is inconvenient for you, there are [workarounds](http://support.divio.com/local-development/docker/how-to-use-a-directory-outside-cusers-with-docker-toolbox-on-windowsdocker-for-windows) you can try at your own risk. **Also:** the pathname you will need to use in the `docker run -v` command will start with `//c/Users/`. Note the leading double-forward-slash, which is different than Docker for Windows!
 
-### Mounting your shared drive
+### Mounting Your Shared Drive
 Your homework files should live on your machine, *not within a Docker container directory!*.
 
-First, **on your local machine** (not in Docker), create a cs186 directory
-somewhere, and create a file or directory inside (anything -- all that matters
+First, **on your local machine** (not in Docker), create a `cs186` directory
+somewhere, and create a file or directory inside (anything—all that matters
 is that the directory is not empty).
 
 Then, to expose this directory from your machine's filesystem to
@@ -153,10 +154,10 @@ When you get a prompt from docker, simply `cd` to that directory and you should 
     ubuntu@95b2c8583144:/cs186$ exit
 
 The `ubuntu@95b2c8583144` (hex digits will be different) tells you that you are
-currently *inside* the docker container; typing `exit` will leave the docker
+currently *inside* the Docker container; typing `exit` will leave the docker
 container.
 
-Now you can edit those files within docker *and any changes you make in that directory subtree will
+Now you can edit those files within Docker *and any changes you make in that directory subtree will
 persist across docker invocations* because the files are stored on your machine's filesystem, and not inside the docker container.
 
 If you do _not_ see anything in the directory (and the directory is not blank on
@@ -183,19 +184,19 @@ You can now start your container whenever you want by running:
 docker start -ai cs186
 ```
 
-### Backing up and versioning your work
+### Backing Up and Versioning Your Work
 
 We ***very strongly*** encourage you to plan to back up your files using a system
 that keeps multiple versions. *You would be crazy not to have a plan for this! We will
 not be helping you manage backups, this is your responsibility!*
 
-The hacker's option here is to [learn `git`](http://git-scm.com/book/en/v1/Getting-Started) well enough to manager your own repository.
+The programmer's option here is to [learn `git`](http://git-scm.com/book/en/v1/Getting-Started) well enough to manager your own repository.
 
 However, since we are not working in teams this semester, it may be sufficient for your
-purposes to use an automatic desktop filesync service like Box, OneDrive or Dropbox.
+purposes to use an automatic desktop filesync service like Box, Google Drive, OneDrive or Dropbox.
 UC Berkeley students have access to free Box.com accounts as documented [here](https://bconnected.berkeley.edu/collaboration-services/box).
 There may be some hiccups making sure that your sync software works with Docker shared drives;
-for Box users we recommend using the older [Box Sync](https://community.box.com/t5/Using-Box-Sync/Installing-Box-Sync/ta-p/85) instead of the newer Box Drive application.
+for Box users we recommend using the older [Box Sync](https://community.box.com/t5/Using-Box-Sync/Installing-Box-Sync/ta-p/85) instead of the newer Box Drive application. Mac users may also take advantage of [iCloud Drive](https://support.apple.com/en-us/HT204025).
 
 **Whatever backup scheme you use, make sure that your files are not publicly visible online. For example, GitHub users should make sure their repos are private.**
 
@@ -203,7 +204,7 @@ for Box users we recommend using the older [Box Sync](https://community.box.com/
 
 Because your files live on your machine's filesystem (in `<pathname-to-directory-on-your-machine>`),
 you can use your favorite editor or other desktop tools to modify those files.
-Any changes you save to those files on your machine will be instantly reflected in Docker.
+Any changes you save to those files on your machine will be (nearly) instantly reflected in Docker.
 As a result, you can think of the Docker container as a place to build and run your code, and not a place to *edit* your code!
 
 **Windows users:** you might need to be aware that Windows convention (inherited from DOS) ends lines of text differently than UNIX/Mac convention
@@ -225,12 +226,12 @@ in this course. If you don't know much about git, that isn't a
 problem: you will *need* to use it only in very simple ways that we will
 show you in order to keep up with class assignments.
 
-Your class docker container includes git already, so you do not need
+Your class Docker container includes git already, so you do not need
 to install it on your machine separately if you do not want to.
-If you'd like to use git for managing your own code versioning, there are many guides to using git online --
-[this](http://git-scm.com/book/en/v1/Getting-Started) is a good one.
+If you'd like to use git for managing your own code versioning, there are many guides to using git.
+[The official Getting Started guide is a good one.](http://git-scm.com/book/en/v1/Getting-Started)
 
-## Fetching the released code
+## Fetching the Released Code
 
 All assignments in CS 186 will be passed out via GitHub. Please check Piazza to keep up-to-date on changes to assignments.
 
@@ -243,7 +244,7 @@ involve writing Java to add functionality to MOOCbase).
 When you exit Docker, you should find the checked-out files on your machine in the
 directory `<pathname-to-directory-on-your-machine>` that you used in your `docker run` command.
 
-## Getting your environment set up
+## Getting Your Environment Set Up
 
 This is a good time to go through [Setting up your local development
 environment](README.md#setting-up-your-local-development-environment) and
@@ -258,7 +259,7 @@ mvn clean test -D HW=0
 
 Make sure that everything compiles. There should be 1 failure and 1 test run.
 
-## Welcome to CS186!
+## Welcome to CS 186!
 
 For this homework, you will need to make a small change to one file.
 
